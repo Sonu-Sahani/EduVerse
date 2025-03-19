@@ -25,7 +25,7 @@ export const userEnrollledCourse = async(req, res) =>{
         const userId = req.auth.userId
         const user = await User.findById(userId).populate('enrolledCourses')
 
-        res.json({success: true, enrolledCourses: getUserData.enrolledCourses})
+        res.json({success: true, enrolledCourses: user.enrolledCourses})
     } catch (error) {
         res.json({success: false, message: error.message})
     }
@@ -64,7 +64,7 @@ export const purchaseCourse = async(req, res) =>{
                 product_data:{
                     name: courseData.courseTitle
                 },
-                unti_amount: Math.floor(newPurchase.amount) * 100
+                unit_amount: Math.floor(newPurchase.amount) * 100
             },
             quantity: 1
         }]
@@ -79,7 +79,7 @@ export const purchaseCourse = async(req, res) =>{
             }
         })
 
-        res.json({success:true, session_url: session_url})
+        res.json({success:true, session_url: session.url})
 
     } catch (error) {
         res.json({success: false, message: error.message});
@@ -131,19 +131,19 @@ export const addUserRating = async (req, res)=>{
     const {courseId, rating} = req.body;
 
     if(!courseId || !userId || !rating || rating < 1 || rating > 5){
-        return res.json({success: true, message:'Invalid Details'});
+        return res.json({success: false, message:'Invalid Details'});
     }
     try {
         const course = await Course.findById(courseId);
 
         if(!course){
-            return res.json({success: true, message: 'Course Not Found.'})
+            return res.json({success: false, message: 'Course Not Found.'})
         }
 
         const user = await User.findById(userId);
         
         if(!user || !user.enrolledCourses.includes(courseId)){
-            return res.json({succes: false, message:'User has not Purchased this course.'})
+            return res.json({success: false, message:'User has not Purchased this course.'})
         }
 
         const existingRatingIndex = course.courseRatings.findIndex(r => r.userId === userId)

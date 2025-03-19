@@ -22,7 +22,7 @@ const courseSchema = new mongoose.Schema({
     courseThumbnail: {type:String},
     coursePrice: {type: Number, required:true},
     isPublished: {type: Boolean, default: true},
-    discount: {type: Number, required: true , min: 0, max: 100},
+    discount: {type: Number, required: true , min: 0, max: 100, default: 0},
     courseContent:[chapterSchema],
     courseRatings: [
         {userId: {type: String }, rating:{type: Number, min: 1, max:5}}

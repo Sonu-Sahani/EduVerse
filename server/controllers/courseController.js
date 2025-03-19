@@ -2,7 +2,7 @@ import Course from "../models/Course.js";
 
 
 //Get All Courses
-export const getAllCourse = async (requestAnimationFrame, res)=>{
+export const getAllCourse = async (req, res)=>{
     try {
         const courses = await Course.find({isPublished: true}).select(['-courseContent', '-enrolledStudents']).populate({path: 'educator'})
 
