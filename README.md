@@ -21,7 +21,7 @@ A complete Learning Management System where students can enroll in courses, watc
 
 🌐 **Live Website**
 
-https://your-live-link.vercel.app
+https://lms-frontend-gold-nu.vercel.app
 
 ---
 
